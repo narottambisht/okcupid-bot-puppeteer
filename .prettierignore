@@ -1,0 +1,21 @@
+# jsons
+*.json
+
+# public
+/public
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+
+#other
+.vscode
+.idea
