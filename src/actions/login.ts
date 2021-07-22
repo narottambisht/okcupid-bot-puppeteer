@@ -1,6 +1,6 @@
 import readline from "readline";
 import { Page } from "puppeteer";
-import { ____EMAIL____, ____PASSWORD____ } from "../utils/config";
+import { ____EMAIL____, __PASSWORD___ } from "../utils/config";
 
 /**
  * Function to read otp from command line utility
@@ -28,7 +28,7 @@ export default async function login(page: Page): Promise<void> {
   await page.click("button#onetrust-accept-btn-handler"); // Click accept cookies button
   await page.click("a.splashdtf-header-signin-splashButton"); // Click signin button
   await page.type("input.login-username", ____EMAIL____); // Enter email in email/username field
-  await page.type("input.login-password", ____PASSWORD____); // Enter password in email/username field
+  await page.type("input.login-password", __PASSWORD___); // Enter password in email/username field
   await page.click("button.login-actions-button"); // Click next button after username & password fillup
 
   try {
@@ -38,11 +38,9 @@ export default async function login(page: Page): Promise<void> {
       const loginOTP: string = await readOTP();
       for (const i in Array.from(loginOTP)) {
         await page.type(`input[data-index='${i}']`, loginOTP[i]);
-        await page.click("button[type='submit'].login-actions-button");
-        await page.waitForNavigation({ waitUntil: "networkidle0" });
       }
+      await page.click("button[type='submit'].login-actions-button");
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
     }
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) {}
 }
