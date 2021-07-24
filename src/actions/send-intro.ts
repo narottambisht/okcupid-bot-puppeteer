@@ -1,5 +1,6 @@
 import { ElementHandle, Page } from "puppeteer";
 import { _INTROMESSAGE_ } from "../utils/config";
+import { sendIntroButtonXpath } from "../utils/xpath";
 
 export default async function sendIntros(page: Page) {
   try {
@@ -12,14 +13,16 @@ export default async function sendIntros(page: Page) {
         (element) => element.innerText,
         chickNameElement
       );
-      await page.click(".cardsummary-profile-link a", { delay: 2000 }); // view profile link click
-      await page.waitForXPath(
-        "/html/body/div[1]/main/div[1]/div[3]/div/div/div[3]/span/div/button[2]",
-        { visible: true }
-      );
-      const sendIntroButton = await page.$x(
-        "/html/body/div[1]/main/div[1]/div[3]/div/div/div[3]/span/div/button[2]"
-      );
+      await page.evaluate(() => {
+        const viewProfileSpan = document.getElementsByClassName(
+          "cardsummary-profile-link"
+        );
+        const viewProfile = viewProfileSpan[0].getElementsByTagName("a");
+        viewProfile[0].click();
+      });
+      // await page.click("span.cardsummary-profile-link a", { delay: 2000 }); // view profile link click
+      await page.waitForXPath(sendIntroButtonXpath, { visible: true });
+      const sendIntroButton = await page.$x(sendIntroButtonXpath);
       await sendIntroButton[0].click();
       await page.waitForSelector("textarea.messenger-composer"); // wait for intro dialog box to open
       await page.type(
