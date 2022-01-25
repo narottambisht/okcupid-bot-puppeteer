@@ -1,2 +1,2 @@
 export const sendIntroButtonXpath =
-  "/html/body/div[1]/main/div[1]/div[3]/div/div/div[3]/span/div/button[2]";
+  "/html/body/div[1]/main/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/button";
